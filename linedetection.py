@@ -4,6 +4,9 @@ import numpy as np
 img = cv2.imread('abc1.png')
 
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+x = gray.copy()
+kernel = np.ones((3,3),np.uint8)
+dilation = cv2.dilate(img,kernel,iterations = 5)
 edges = cv2.Canny(gray,50,150,apertureSize = 3)
 
 
@@ -32,20 +35,24 @@ output_img[np.where(mask==0)] = 0
 kernel = np.ones((5,5),np.uint8)
 closing = cv2.morphologyEx(output_img, cv2.MORPH_CLOSE, kernel)
 opening = cv2.morphologyEx(closing, cv2.MORPH_OPEN, kernel)
-closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, kernel)
+kernel1 = np.ones((40,40),np.uint8)
+closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, kernel1)
 
-
+m=cv2.cvtColor(closing, cv2.COLOR_BGR2GRAY)
+x[np.where(m>0)] = 255
+x[np.where(x>200)] = 255
+x[np.where(x<200)] = 0
 ########################
 #Visualizations
 
-cv2.imshow("img", closing)
-cv2.waitKey(0)
-cv2.imshow("img", opening)
-cv2.waitKey(0)
 cv2.imshow("img", img)
 cv2.waitKey(0)
+cv2.imshow("img", mask)
+cv2.waitKey(0)
+cv2.imshow("img", closing)
+cv2.waitKey(0)
 
-cv2.imshow("LSD",drawn_img )
+cv2.imshow("LSD",x)
 cv2.waitKey(0)
 #cv2.imwrite('houghlines5.jpg',img)
 
