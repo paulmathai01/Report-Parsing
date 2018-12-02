@@ -41,7 +41,7 @@ closing = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, kernel1)
 m=cv2.cvtColor(closing, cv2.COLOR_BGR2GRAY)
 x[np.where(m>0)] = 255
 x[np.where(x>200)] = 255
-x[np.where(x<200)] = 0
+#x[np.where(x<200)] = 0
 ########################
 #Visualizations
 
