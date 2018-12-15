@@ -53,6 +53,8 @@ def aabb(region):
 
 
 img2 = scipy.misc.imread(filename.filename)
+
+
 ###
 gray = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
 
